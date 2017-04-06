@@ -13,6 +13,7 @@ import com.example.standard.habittracker.data.HabitTrackerContract.HabitTrackerE
 public class HabitTrackerActivity extends AppCompatActivity {
 
     private HabitTrackerDbHelper mDbHelper;
+    private Cursor cursor;
 
     public static final String LOG_TAG = HabitTrackerActivity.class.getSimpleName();
 
@@ -63,14 +64,24 @@ public class HabitTrackerActivity extends AppCompatActivity {
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
-        // Perform this raw SQL query "SELECT * FROM pets" with db.query
-        String[] position = {
-                HabitTrackerEnty.COLUMN_ID,
-                HabitTrackerEnty.COLUMN_DAY,
-                HabitTrackerEnty.COLUMN_TODO,
-                HabitTrackerEnty.COLUMN_TODO_STATUS
-        };
+        try {
+            // Perform this raw SQL query "SELECT * FROM pets" with db.query
+            String[] position = {
+                    HabitTrackerEnty.COLUMN_ID,
+                    HabitTrackerEnty.COLUMN_DAY,
+                    HabitTrackerEnty.COLUMN_TODO,
+                    HabitTrackerEnty.COLUMN_TODO_STATUS
+            };
 
-        return db.query(HabitTrackerEnty.TABLE_NAME, position,null, null, null, null, null);
+            cursor = db.query(HabitTrackerEnty.TABLE_NAME, position,null, null, null, null, null);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            cursor.moveToFirst();
+            cursor.close();
+            db.close();
+        }
+        return cursor;
     }
 }

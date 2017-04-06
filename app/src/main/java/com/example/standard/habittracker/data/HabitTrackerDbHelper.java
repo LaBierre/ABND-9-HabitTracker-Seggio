@@ -21,7 +21,7 @@ public class HabitTrackerDbHelper extends SQLiteOpenHelper {
     /**
      * Database version. If you change the database schema, you must increment the database version.
      */
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
     public HabitTrackerDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

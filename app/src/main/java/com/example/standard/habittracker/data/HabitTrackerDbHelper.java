@@ -21,7 +21,7 @@ public class HabitTrackerDbHelper extends SQLiteOpenHelper {
     /**
      * Database version. If you change the database schema, you must increment the database version.
      */
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public HabitTrackerDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -46,7 +46,7 @@ public class HabitTrackerDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + HabitTrackerEnty.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + HabitTrackerEnty.TABLE_NAME + ";");
 
         // Create tables again
         onCreate(db);

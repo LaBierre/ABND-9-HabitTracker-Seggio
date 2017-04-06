@@ -54,7 +54,7 @@ public class HabitTrackerActivity extends AppCompatActivity {
         db.insert(HabitTrackerEnty.TABLE_NAME, null, valuesTwo);
     }
 
-    private void readData(){
+    private Cursor readData(){
 
         // To access my database, i instantiate my subclass of SQLiteOpenHelper
         // and pass the context, which is the current activity.
@@ -70,27 +70,7 @@ public class HabitTrackerActivity extends AppCompatActivity {
                 HabitTrackerEnty.COLUMN_TODO,
                 HabitTrackerEnty.COLUMN_TODO_STATUS
         };
-        Cursor cursor = db.query(HabitTrackerEnty.TABLE_NAME, position,null, null, null, null, null);
 
-        try {
-            //Figure out the index of each column
-            int idColumnIndex = cursor.getColumnIndex(HabitTrackerEnty._ID);
-            int dayColumnIndex = cursor.getColumnIndex(HabitTrackerEnty.COLUMN_DAY);
-            int todoColumnIndex = cursor.getColumnIndex(HabitTrackerEnty.COLUMN_TODO);
-            int todoStatusColumnIndex = cursor.getColumnIndex(HabitTrackerEnty.COLUMN_TODO_STATUS);
-
-            while (cursor.moveToNext()){
-                //I use the figured out index to extract the String or Int value of the
-                //word at the current row is on
-                int currentId = cursor.getInt(idColumnIndex);
-                String currentDay = cursor.getString(dayColumnIndex);
-                String currentTodo = cursor.getString(todoColumnIndex);
-                int currentTodoStatus = cursor.getInt(todoStatusColumnIndex);
-            }
-        } finally {
-            // The cursor will be closed. This releases all its
-            // resources and makes it invalid.
-            cursor.close();
-        }
+        return db.query(HabitTrackerEnty.TABLE_NAME, position,null, null, null, null, null);
     }
 }

@@ -3,6 +3,7 @@ package com.example.standard.habittracker.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.standard.habittracker.data.HabitTrackerContract.HabitTrackerEnty;
 
@@ -43,6 +44,11 @@ public class HabitTrackerDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // The database is still at version 1, so there's nothing to do be done here.
+
+        // Drop older table if existed
+        db.execSQL("DROP TABLE IF EXISTS " + HabitTrackerEnty.TABLE_NAME);
+
+        // Create tables again
+        onCreate(db);
     }
 }
